@@ -4,13 +4,13 @@
 
 - metaWeather api link : <https://www.metaweather.com>
 
-## :point_right: If we look at the application in general
+## :point_right: **If we look at the application in general**
 - Use of google maps
 - Getting weather related data from metaWeather api
 - Operations such as internet control were carried out.
 - Language : Kotlin
 
-## :open_file_folder: Manifest file
+## :open_file_folder: **Manifest file**
 
 ``` xml
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 ```
 
-## :open_file_folder: Build.gradle
+## :open_file_folder: **Build.gradle**
 
 ```xml 
 
