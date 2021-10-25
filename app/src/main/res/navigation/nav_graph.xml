@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchLocationFragment">
+
+    <fragment
+        android:id="@+id/searchLocationFragment"
+        android:name="com.tugcearas.weatherapp.SearchLocationFragment"
+        android:label="@string/search_location_fragment_label"
+        tools:layout="@layout/fragment_search_location">
+
+        <action
+            android:id="@+id/action_searchLocationFragment_to_locationInfoFragment"
+            app:destination="@id/locationInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/locationInfoFragment"
+        android:name="com.tugcearas.weatherapp.LocationInfoFragment"
+        android:label="@string/location_info_fragment_label"
+        tools:layout="@layout/fragment_location_info">
+
+        <action
+            android:id="@+id/action_locationInfoFragment_to_pastLocationInoFragment"
+            app:destination="@id/pastLocationInoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pastLocationInoFragment"
+        android:name="com.tugcearas.weatherapp.PastLocationInfoFragment"
+        android:label="@string/past_location_info_fragment_label"
+        tools:layout="@layout/fragment_past_location_info">
+
+    </fragment>
+
+</navigation>

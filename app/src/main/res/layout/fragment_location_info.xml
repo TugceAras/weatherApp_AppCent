@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="mwLocationInfo"
+            type="com.tugcearas.weatherapp.backend.data.MWLocationInfo" />
+
+        <variable
+            name="forecastSize"
+            type="Integer" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".LocationInfoFragment">
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mpb_progressStyle="horizontal"
+                app:mpb_useIntrinsicPadding="false" />
+
+            <include
+                android:id="@+id/weather"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                layout="@layout/view_weather"
+                bind:title="@{mwLocationInfo.title}"
+                bind:parent="@{mwLocationInfo.parent.title}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(0)}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/time"
+                app:layout_constraintEnd_toStartOf="@+id/sunrise"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weather" />
+
+            <TextView
+                android:id="@+id/time_val"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mwLocationInfo.formattedTime()}"
+                app:layout_constraintStart_toStartOf="@id/time"
+                app:layout_constraintTop_toBottomOf="@id/time"
+                tools:text="8:45am" />
+
+            <TextView
+                android:id="@+id/sunrise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/sunrise"
+                app:layout_constraintEnd_toStartOf="@+id/sunset"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/time"
+                app:layout_constraintTop_toBottomOf="@id/weather" />
+
+            <TextView
+                android:id="@+id/sunrise_val"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mwLocationInfo.formattedSunriseTime()}"
+                app:layout_constraintStart_toStartOf="@id/sunrise"
+                app:layout_constraintTop_toBottomOf="@id/sunrise"
+                tools:text="7:25am" />
+
+            <TextView
+                android:id="@+id/sunset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/sunset"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/sunrise"
+                app:layout_constraintTop_toBottomOf="@id/weather" />
+
+            <TextView
+                android:id="@+id/sunset_val"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mwLocationInfo.formattedSunsetTime()}"
+                app:layout_constraintStart_toStartOf="@id/sunset"
+                app:layout_constraintTop_toBottomOf="@id/sunset"
+                tools:text="7:30pm" />
+
+
+            <include
+                android:id="@+id/zero"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sunrise_val"
+                bind:index="@{0}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(0)}" />
+
+            <include
+                android:id="@+id/one"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/zero"
+                bind:index="@{1}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(1)}" />
+
+            <include
+                android:id="@+id/two"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/one"
+                bind:index="@{2}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(2)}" />
+
+            <include
+                android:id="@+id/three"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/two"
+                bind:index="@{3}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(3)}" />
+
+            <include
+                android:id="@+id/four"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/three"
+                bind:index="@{4}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(4)}" />
+
+            <include
+                android:id="@+id/five"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{forecastSize>=5?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/four"
+                bind:index="@{forecastSize>5?5:forecastSize-1}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(forecastSize>5?5:forecastSize-1)}" />
+
+            <include
+                android:id="@+id/six"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{forecastSize>6?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/five"
+                bind:index="@{forecastSize>6?6:forecastSize-1}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(forecastSize>6?6:forecastSize-1)}" />
+
+            <include
+                android:id="@+id/seven"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{forecastSize>7?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/six"
+                bind:index="@{forecastSize>7?7:forecastSize-1}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(forecastSize>7?7:forecastSize-1)}" />
+
+            <include
+                android:id="@+id/eight"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{forecastSize>8?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/seven"
+                bind:index="@{forecastSize>8?8:forecastSize-1}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(forecastSize>8?8:forecastSize-1)}" />
+
+            <include
+                android:id="@+id/nine"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{forecastSize>9?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eight"
+                bind:index="@{forecastSize>9?9:forecastSize-1}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(forecastSize>9?9:forecastSize-1)}" />
+
+            <include
+                android:id="@+id/ten"
+                layout="@layout/view_min_max_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{forecastSize>10?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nine"
+                bind:index="@{forecastSize>10?10:forecastSize-1}"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(forecastSize>10?10:forecastSize-1)}" />
+
+            <TextView
+                android:id="@+id/past"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/check_past_weather"
+                android:padding="8dp"
+                app:layout_constraintTop_toBottomOf="@id/ten"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_arrow_right_black_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ten" />
+
+            <View
+                android:id="@+id/forecast_end"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="@id/past"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <include
+                layout="@layout/view_weather_misc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/forecast_end"
+                bind:mwWeather="@{mwLocationInfo.consolidated_weather.get(0)}"
+                bind:title="@{String.format(@string/current_details)}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
