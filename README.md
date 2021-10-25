@@ -1,6 +1,6 @@
 # <p align="center"> :sunny: **WeatherApp** :cloud:
 ## :dart: **The subject of the project**
-#### An application that displays the weather in that region on a daily and weekly basis according to the user's location information using the metaWeather API.
+#### An application that displays the weather in that region on a daily and weekly basis according to the users location information using the metaWeather API.
 
 - metaWeather api link : <https://www.metaweather.com>
 
